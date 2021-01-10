@@ -1,0 +1,106 @@
+{% load static %}
+<html lang="en">
+<head>
+    <script>
+        
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+    <!-- App css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href=" {% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href=" {% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <style>
+        .green{
+            
+            background-color:rgb(97, 201, 102) ;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- <div class="navbar bg-success shadow" >
+        <div class="navbar-brand p-2">
+            <a href="/"><img class="img-sm" src="{% static  'images\logo.png' %}" alt="hdd"></a>
+        </div>
+    </div> -->
+    <div class="left-side-menu bg-success shadow" style="width: 333px;top:0px;">
+        <a href="/" class="text-light "><i class="ti-angle-left"></i> Back</a>
+        <div class="user-box text-center mt-3">
+            <div class="navbar-brand p-2">
+                <img class="img-sm" src="{% static  'images\logo.png' %}" alt="hdd">
+            </div>
+            <div class="left-side-menu green shadow" style="width: 333px;top:240px;">
+                <div class="container-fluid">
+                    <p class="text-right text-light"><b>Sub-total:</b>{{ client.value }}.00</p>
+                    <p class="text-right text-light">Discout: 12.9%</p>
+                    <p class="text-right text-light">GST: 12.9%</p>
+                    <hr class="bg-dark">
+                    <h1 class="text-right text-light">USD {{ client.value }}.00</h1>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- end of sidebar -->
+    <div class="container ">
+        
+        <form action="{% url 'charge' client.id%}" method="post">
+            {% csrf_token %}
+            <div class="content-page pt-5" style="margin-left: 330px;">
+                <p><i class="fas fa-lock"></i>Your transaction is secured by 128-bit SSL protocol.</p>
+                <div class="card">
+                
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="{{ key }}"
+                    data-description="A Django Charge"
+                    data-amount="{{ client.value }}00"
+                    data-locale="auto"
+                    data-billingAddress="true"
+                    data-shippingAddress="true"
+                    
+                    >
+                </script> 
+                <script>
+                    // Hide default stripe button, be careful there if you
+                    // have more than 1 button of that class
+                    document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                </script>
+                
+                <button type="submit" class="btn btn-success shadow text-light">Pay with Card &nbsp <i class="far fa-credit-card"></i></button>
+                </div>
+                       
+             </div>
+        </form>
+    </div>
+   
+
+    
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    <script src="{% static 'js/vendor.min.js'%}"></script>
+
+    <script src=" {% static 'libs/flot-charts/jquery.flot.js' %}"></script>
+    <script src=" {% static 'libs/flot-charts/jquery.flot.time.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.tooltip.min.js'%}"></script>
+    <script src=" {% static 'libs/flot-charts/jquery.flot.resize.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.pie.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.selection.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.stack.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.orderBars.js'%}"></script>
+    <script src="{% static 'libs/flot-charts/jquery.flot.crosshair.js'%}"></script>
+
+    <!-- init js -->
+    <script src="{% static 'js/pages/flot.init.js'%}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js'%}"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+    
+</body>
+</html>
